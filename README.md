@@ -1,4 +1,4 @@
-# Tool-2-Go
+# Script-To-Go
 Let's automating your regular pentesting task.
 
 This tool is created to automate the following task:
