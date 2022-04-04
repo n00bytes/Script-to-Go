@@ -26,7 +26,6 @@ Credit to the following for creating these awesome tools.
   * https://github.com/michenriksen
   * https://nmap.org/
 
-
-# Installation
+ 
  
  
