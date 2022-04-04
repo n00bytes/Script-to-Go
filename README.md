@@ -1,20 +1,18 @@
 # Script-To-Go
-Let's automating your regular pentesting task.
-
-This tool is created to automate the following task:
+This script was created to automate the following task:
 
 Port Scanning using Nmap:
   * TCP top 10k ports
   * UDP top 1k ports
 
-Subdomain enumeration using:
+Collect 2nd level domain from Nmap result and use to perform Subdomain enumeration using:
   * Amass
   * Subfinder
-
+  
 Website screen capturing using:
   * Aquatone
 
-HTTP prober using:
+Identified active domains using HTTP prober using:
   * httpx
 
 Vulnerability Scanning using:
