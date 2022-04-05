@@ -28,25 +28,25 @@ Credit to the following for creating these awesome tools.
 
  
  # Check the following links to install following tools.
- Go installation
+ * Go installation
  https://go.dev/doc/install
  
- Subfinder
+ * Subfinder
  https://github.com/projectdiscovery/subfinder
  
- Nuclei Scanner
+ * Nuclei Scanner
  https://github.com/projectdiscovery/nuclei
  
- HTTPx
+ * HTTPx
  https://github.com/projectdiscovery/httpx
  
- Amass
+ * Amass
  https://github.com/OWASP/Amass/blob/master/doc/install.md
  
- DNSx
+ * DNSx
  https://github.com/projectdiscovery/dnsx
  
- Aquatone
+ * Aquatone
  https://github.com/michenriksen/aquatone
  
  Note: Once installed make sure to copy the binaries to "/usr/local/bin"
