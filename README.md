@@ -12,7 +12,7 @@ Extract 2nd level domain from Nmap result and use to perform Subdomain enumerati
 Website screen capturing using:
   * Aquatone
 
-Identified active Webs using HTTP prober:
+Identify active Web urls using HTTP prober:
   * HTTPx
 
 Vulnerability Scanning using:
