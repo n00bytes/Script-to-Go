@@ -27,7 +27,7 @@ Credit to the following for creating these awesome tools.
   * https://nmap.org/
 
  
- # Check the following links on how to install following tools.
+ # Check the following links to install following tools.
  Go installation
  https://go.dev/doc/install
  
