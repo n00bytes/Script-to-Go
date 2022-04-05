@@ -27,7 +27,9 @@ Credit to the following for creating these awesome tools.
   * https://nmap.org/
 
  
- # Check the following links to install following tools.
+ # Check the following links to manually install following tools.
+Note: Make sure to install them as root and once installed run " export PATH=$PATH:/root/go/bin " 
+
  * Go installation
  https://go.dev/doc/install
  
@@ -49,5 +51,4 @@ Credit to the following for creating these awesome tools.
  * Aquatone
  https://github.com/michenriksen/aquatone
 
-Once installed run " export PATH=$PATH:/root/go/bin " 
 
