@@ -27,5 +27,26 @@ Credit to the following for creating these awesome tools.
   * https://nmap.org/
 
  
- # Installation
+ # Check the following links on how to install following tools.
+ Go installation
+ https://go.dev/doc/install
  
+ Subfinder
+ https://github.com/projectdiscovery/subfinder
+ 
+ Nuclei Scanner
+ https://github.com/projectdiscovery/nuclei
+ 
+ HTTPx
+ https://github.com/projectdiscovery/httpx
+ 
+ Amass
+ https://github.com/OWASP/Amass/blob/master/doc/install.md
+ 
+ DNSx
+ https://github.com/projectdiscovery/dnsx
+ 
+ Aquatone
+ https://github.com/michenriksen/aquatone
+ 
+ Note: Once installed make sure to copy the binaries to "/usr/local/bin"
