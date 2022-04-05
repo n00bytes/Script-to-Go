@@ -49,3 +49,5 @@ Credit to the following for creating these awesome tools.
  * Aquatone
  https://github.com/michenriksen/aquatone
 
+Once installed run " export PATH=$PATH:/root/go/bin " 
+
