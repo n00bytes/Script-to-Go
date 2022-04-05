@@ -45,4 +45,4 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
  * Aquatone
  https://github.com/michenriksen/aquatone
 
-# Or installed them using the installation script.
+# Or install them using the installation script.
