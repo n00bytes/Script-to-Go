@@ -48,5 +48,4 @@ Credit to the following for creating these awesome tools.
  
  * Aquatone
  https://github.com/michenriksen/aquatone
- 
- Note: Once installed make sure to copy the binaries to "/usr/local/bin"
+
