@@ -32,22 +32,16 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
 
  * Go installation
  https://go.dev/doc/install
- 
  * Subfinder
  https://github.com/projectdiscovery/subfinder
- 
  * Nuclei Scanner
  https://github.com/projectdiscovery/nuclei
- 
  * HTTPx
  https://github.com/projectdiscovery/httpx
- 
  * Amass
  https://github.com/OWASP/Amass/blob/master/doc/install.md
- 
  * DNSx
  https://github.com/projectdiscovery/dnsx
- 
  * Aquatone
  https://github.com/michenriksen/aquatone
 
