@@ -58,9 +58,6 @@ mkdir "$outDir" "$outNmap" "$outAquatone"
 nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 1000 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/Nmap-TCP-10K &>/dev/null
 echo -e "${BGreen}Port Scanning Top-ports 10000 TCP........${BRed}[DONE]"
 ###
-nmap -T4 -Pn -n -sU -A --open --top-ports 1000 --min-rate 1000 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/Nmap-UDP-1K &>/dev/null
-echo -e "${BGreen}Port Scanning Top-ports 1000 UDP........${BRed}[DONE]"
-###
 cat "$outNmap"/Nmap-TCP-10K.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
 echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 ###
