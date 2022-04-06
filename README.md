@@ -2,7 +2,7 @@
 This script was created to automate the following task:
 
 Port Scanning using Nmap:
-  * TCP top 10k ports, this will discover almost 95% of the open TCP ports.
+  * Full Nmap TCP and UPD
 
 Extract 2nd level domain from Nmap result and use to perform Subdomain enumeration using:
   * Amass
