@@ -55,7 +55,7 @@ outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 ###
-nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 1000 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/Nmap-TCP-10K &>/dev/null
+nmap -T4 -Pn -n --randomize-hosts -sSUVC -O --open --min-rate 1000 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit -p T:1-65535,U:7,9,17,19,49,53,67-69,80,88,111,120,123,135-139,158,161-162,177,427,443,445,497,500,514-515,518,520,593,623,626,631,996-999,1022-1023,1025-1030,1433-1434,1645-1646,1701,1718-1719,1812-1813,1900,2000,2048-2049,2222-2223,3283,3456,3703,4444,4500,5000,5060,5353,5632,9200,10000,17185,20031,30718,31337,32768-32769,32771,32815,33281,49152-49154,49156,49181-49182,49185-49186,49188,49190-49194,49200-49201,65024 -iL $TargetFile -oA "$outNmap"/Full-Nmap &>/dev/null
 echo -e "${BGreen}Port Scanning Top-ports 10000 TCP........${BRed}[DONE]"
 ###
 cat "$outNmap"/Nmap-TCP-10K.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
