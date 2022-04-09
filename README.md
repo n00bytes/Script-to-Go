@@ -4,7 +4,7 @@ This script was created to automate the following task:
 Port Scanning using Nmap:
   * Nmap TCP Top 5k ports
 
-Extract 2nd level domain from Nmap result and use to perform Subdomain enumeration using:
+Extract 2nd level domain from Nmap result and use it to perform Subdomain enumeration using:
   * Amass
   * Subfinder
   
