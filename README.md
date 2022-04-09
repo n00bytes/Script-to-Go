@@ -47,4 +47,4 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
 # Or install them using the installation script.
 In progress........
 * Installation script
-* Options to use amaas and subfinder config file for better result.
+* Option to use amaas and subfinder config file for better result.
