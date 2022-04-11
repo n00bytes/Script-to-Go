@@ -79,7 +79,7 @@ echo -e "${BGreen}Checking In-Scope target......${BRed}[DONE]"
 cat $TargetFile "$outDir"/In-ScopeSubdomains.txt | aquatone -ports large -out "$outAquatone"/ &>/dev/null
 echo -e "${BGreen}Running Aquatone........${BRed}[DONE]"
 ###
-cat "$outDir"/"$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
+cat "$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
 echo -e "${BGreen}HTTPx  scanning......${BRed}[DONE]"
 ###
 nuclei -update -ut
