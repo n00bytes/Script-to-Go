@@ -1,6 +1,8 @@
 # Script-To-Go
 This script was created to automate the following task:
 
+Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address>
+
 Port Scanning using Nmap:
   * Nmap TCP Top 5k ports
 
