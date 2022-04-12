@@ -55,7 +55,7 @@ outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 ###
-nmap -T4 -Pn -n --randomize-hosts -sSVC -O --open --min-rate 500 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit --top-ports 5000 -iL $TargetFile -oA "$outNmap"/Full-Nmap 
+nmap -T4 -Pn -n --randomize-hosts -sSVC -O --open --min-rate 500 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit --top-ports 5000 -iL $TargetFile -oA "$outNmap"/Full-Nmap &>/dev/null
 echo -e "${BGreen}Port Scanning........${BRed}[DONE]"
 ###
 cat "$outNmap"/Full-Nmap.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
@@ -82,7 +82,7 @@ echo -e "${BGreen}Running Aquatone........${BRed}[DONE]"
 cat "$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
 echo -e "${BGreen}HTTPx  scanning......${BRed}[DONE]"
 ###
-nuclei -update -ut
+nuclei -update -ut &>/dev/null
 ###
 cat "$outDir"/HTTPxOut.txt | grep -Fv -e 404 -e 500 -e 401 -e 402 -e 400 -e FAILED | awk {'print $1'} | nuclei -o "$outDir"/NucleiScanOut.txt &>/dev/null
 echo -e "${BGreen}Nuclei scanning......${BRed}[DONE]"
