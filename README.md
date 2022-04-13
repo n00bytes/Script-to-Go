@@ -28,7 +28,7 @@ Credit to the following for creating these awesome tools.
   * https://nmap.org/
 
  
- # Check the links to manually install following tools.
+ # Check the following links to manually install the tools needed.
 Note: Make sure to install them as root and once installed run " export PATH=$PATH:/root/go/bin " 
 
  * Go installation
