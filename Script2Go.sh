@@ -68,7 +68,7 @@ subfinder -silent -dL "$outDir"/domainLists.txt -o "$outDir"/SubfinderOut.txt &>
 echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
 ###
 cat "$outDir"/AmassOut.txt "$outDir"/SubfinderOut.txt | sort -u > "$outDir"/Subdomains.txt
-echo -e "${BGreen}Sorting discovered subdomains......${BRed}[DONE]"
+echo -e "${BGreen}Listing discovered subdomains......${BRed}[DONE]"
 ###
 cat "$outDir"/Subdomains.txt | dnsx -silent -resp -a -aaaa -o "$outDir"/DnsxOut.txt &>/dev/null
 echo -e "${BGreen}Performing reverse dns queries......${BRed}[DONE]"
