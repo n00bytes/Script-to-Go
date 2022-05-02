@@ -6,7 +6,7 @@ Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address>
 Port Scanning using Nmap:
   * Nmap TCP port scan.
 
-Extract 2nd level domain from Nmap result and use it to perform Subdomain enumeration using:
+Extract 2nd level domain from Nmap result and perform Subdomain enumeration using:
   * Amass
   * Subfinder
   
