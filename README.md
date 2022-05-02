@@ -47,5 +47,5 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
  https://github.com/michenriksen/aquatone
 
 # Or install them using the installation script.
-* Make sure to run the install.sh as root.
+* Make sure to run the install.sh as root and run the script on the background.
 
