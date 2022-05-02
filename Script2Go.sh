@@ -55,10 +55,10 @@ outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 ###
-nmap -T4 -Pn -n --randomize-hosts -sSVC -O --open --min-rate 500 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit --top-ports 5000 -iL $TargetFile -oA "$outNmap"/TCPScan-Nmap &>/dev/null
+nmap -T4 -Pn -n --randomize-hosts -sSVC -O --open --min-rate 500 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit --top-ports 5000 -iL $TargetFile -oA "$outNmap"/TCP-Scan &>/dev/null
 echo -e "${BGreen}Port Scanning........${BRed}[DONE]"
 ###
-cat "$outNmap"/TCPScan-Nmap.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
+cat "$outNmap"/TCP-Scan.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
 echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 ###
 amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt
@@ -76,7 +76,7 @@ echo -e "${BGreen}Performing reverse dns queries......${BRed}[DONE]"
 cat "$outDir"/DnsxOut.txt | grep -f $TargetFile > "$outDir"/In-ScopeSubdomains.txt
 echo -e "${BGreen}Checking In-Scope target......${BRed}[DONE]"
 ###
-cat $TargetFile "$outDir"/In-ScopeSubdomains.txt | aquatone -ports large -out "$outAquatone"/ &>/dev/null
+awk '{print $1}' $TargetFile "$outDir"/In-ScopeSubdomains.txt | aquatone -ports large -out "$outAquatone"/ &>/dev/null
 echo -e "${BGreen}Running Aquatone........${BRed}[DONE]"
 ###
 cat "$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
