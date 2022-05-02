@@ -13,6 +13,7 @@ go install -v github.com/OWASP/Amass/v3/...@master
 else
         echo "Amass Already Installed"
 fi
+
 if ! command -v subfinder &>/dev/null; then
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && cp /root/go/bin/subfinder /usr/local/bin/
 else
@@ -22,23 +23,26 @@ if ! command -v aquatone &>/dev/null; then
 wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip -O /tmp/aquatone_linux_amd64.zip && unzip -a /tmp/aquatone_linux_amd64.zip -d /tmp && cp /tmp/aquatone /usr/local/bin
 else
         echo "Aquatone Already Installed"
+fi
 	
 if ! command -v chromium &>/dev/null; then
 sudo apt install chromium -y
 else
         echo "Chromium Already Installed"
-
 fi
+
 if ! command -v httpx &>/dev/null; then
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && cp /root/go/bin/httpx /usr/local/bin/
 else
         echo "HTTPx Already Installed"
 fi
+
 if ! command -v nuclei &>/dev/null; then
 go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest && cp /root/go/bin/nuclei /usr/local/bin/
 else
         echo "Nuclei Already Installed"
 fi
+
 if ! command -v dnsx &>/dev/null; then
 go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest  && cp /root/go/bin/dnsx /usr/local/bin/
 else
