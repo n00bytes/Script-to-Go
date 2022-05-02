@@ -19,7 +19,7 @@ Identify active Web urls using HTTP prober:
 Vulnerability Scanning using:
   * Nuclei
  
-This tool will also perform DNS queries againts the discovered subdomains and compare with your supplied target file to avoid any out-of-scope scanning.
+This tool will also perform DNS queries againts the discovered subdomains and compare it on your supplied target file to avoid any out-of-scope scanning.
 
 Credit to the following for creating these awesome tools.
   * https://github.com/projectdiscovery/
