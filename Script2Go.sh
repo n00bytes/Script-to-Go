@@ -48,27 +48,28 @@ TargetFile=${f}
 echo ""
 echo -e "${BGreen}Go Grab Some Coffee........"
 echo ""
-echo -e "${BRed}Scanning in progress..........."
+echo -e "${BRed}Scanning in progress..........\033[0;31m'"
 outDir="Result-$(date +"%d-%m-%Y")"
 outAquatone="$outDir"/Aquatone-$(date +"%d-%m-%Y")
 outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 ###
-nmap -T4 -Pn -n --randomize-hosts -sSVC -O --open --min-rate 500 --max-rate 5000 --max-retries 3 --defeat-rst-ratelimit --top-ports 5000 -iL $TargetFile -oA "$outNmap"/TCP-Scan &>/dev/null
-echo -e "${BGreen}Port Scanning........${BRed}[DONE]"
+nmap -T4 -Pn -n -sS -A --open --top-ports 5000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/Nmap-TCP-5K &>/dev/null
+echo -e "${BGreen}Port Scanning Top-ports 5000 TCP........${BRed}[DONE]"
 ###
-cat "$outNmap"/TCP-Scan.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
+###
+cat "$outNmap"/Nmap-TCP-5K.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
 echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 ###
 amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt
 echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
 ###
-subfinder -silent -dL "$outDir"/domainLists.txt -o "$outDir"/SubfinderOut.txt &>/dev/null
+subfinder  -silent -dL "$outDir"/domainLists.txt -o "$outDir"/SubfinderOut.txt &>/dev/null
 echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
 ###
 cat "$outDir"/AmassOut.txt "$outDir"/SubfinderOut.txt | sort -u > "$outDir"/Subdomains.txt
-echo -e "${BGreen}Listing discovered subdomains......${BRed}[DONE]"
+echo -e "${BGreen}Sorting discovered subdomains......${BRed}[DONE]"
 ###
 cat "$outDir"/Subdomains.txt | dnsx -silent -resp -a -aaaa -o "$outDir"/DnsxOut.txt &>/dev/null
 echo -e "${BGreen}Performing reverse dns queries......${BRed}[DONE]"
@@ -76,10 +77,10 @@ echo -e "${BGreen}Performing reverse dns queries......${BRed}[DONE]"
 cat "$outDir"/DnsxOut.txt | grep -f $TargetFile > "$outDir"/In-ScopeSubdomains.txt
 echo -e "${BGreen}Checking In-Scope target......${BRed}[DONE]"
 ###
-awk '{print $1}' $TargetFile "$outDir"/In-ScopeSubdomains.txt | aquatone -ports large -out "$outAquatone"/ &>/dev/null
+cat $TargetFile "$outDir"/In-ScopeSubdomains.txt | aquatone -ports large -out "$outAquatone"/ &>/dev/null
 echo -e "${BGreen}Running Aquatone........${BRed}[DONE]"
 ###
-cat "$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
+cat "$outDir"/"$outAquatone"/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o "$outDir"/HTTPxOut.txt &>/dev/null
 echo -e "${BGreen}HTTPx  scanning......${BRed}[DONE]"
 ###
 nuclei -update -ut &>/dev/null
