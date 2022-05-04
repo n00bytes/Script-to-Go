@@ -88,5 +88,5 @@ nuclei -update -ut &>/dev/null
 cat "$outDir"/HTTPxOut.txt | grep -Fv -e 404 -e 500 -e 401 -e 402 -e 400 -e FAILED | awk {'print $1'} | nuclei -o "$outDir"/NucleiScanOut.txt &>/dev/null
 echo -e "${BGreen}Nuclei scanning......${BRed}[DONE]"
 #echo ""
-echo -e "${BGreen}BreakTime is over, output files on $outDir"
+
 echo -e "${BRed}Now Get those file and start working..........."
