@@ -55,11 +55,11 @@ outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 ###
-nmap -T4 -Pn -n -sS -A --open --top-ports 5000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/Nmap-TCP-5K &>/dev/null
-echo -e "${BGreen}Port Scanning Top-ports 5000 TCP........${BRed}[DONE]"
+nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/nmap_top_10k &>/dev/null
+echo -e "${BGreen}Port Scanning Top-ports 10000 TCP........${BRed}[DONE]"
 ###
 ###
-cat "$outNmap"/Nmap-TCP-5K.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
+cat "$outNmap"/nmap_top_10k.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
 echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 ###
 amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt
