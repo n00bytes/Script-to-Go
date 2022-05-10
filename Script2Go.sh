@@ -62,7 +62,7 @@ echo -e "${BGreen}Port Scanning Top-ports 10000 TCP........${BRed}[DONE]"
 cat "$outNmap"/nmap_top_10k.nmap | grep 'commonName' | awk '{print $4}' | awk -F '=|/' '{print $2}' | rev | cut -d "." -f1-2 | rev | sort -u | awk -F '.' 'NF>1' > "$outDir"/domainLists.txt
 echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 ###
-amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt
+amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt &>/dev/null
 echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
 ###
 subfinder  -silent -dL "$outDir"/domainLists.txt -o "$outDir"/SubfinderOut.txt &>/dev/null
