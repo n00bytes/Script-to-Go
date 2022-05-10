@@ -55,8 +55,8 @@ outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
 #### Comment out if you want to use config file for Amass and Subfinder ###
-#AmassConfig=/Path/config.ini    #Edit path to your config.ini
-#SubfinderConfig=/Path/provider-config.yaml	#Edit path to your provider-config.yaml
+#AmassConfig=/Path/config.ini    #Uncomment and edit path to your config.ini
+#SubfinderConfig=/Path/provider-config.yaml	#Uncomment and edit path to your provider-config.yaml
 
 
 nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA "$outNmap"/nmap_top_10k &>/dev/null
