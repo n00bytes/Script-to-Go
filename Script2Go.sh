@@ -68,12 +68,12 @@ echo -e "${BGreen}Extracting domain list........${BRed}[DONE]"
 
 
 amass enum -silent -df "$outDir"/domainLists.txt -o "$outDir"/AmassOut.txt &>/dev/null
-#amass enum -silent -df "$outDir"/domainLists.txt -c $AmassConfig -o "$outDir"/AmassOut.txt #comment out this line and comment the line 70 if you have config file.
+#amass enum -silent -df "$outDir"/domainLists.txt -c $AmassConfig -o "$outDir"/AmassOut.txt #uncomment out this line and comment the line 70 if you have config file.
 echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
 
 
 subfinder  -silent -dL "$outDir"/domainLists.txt -o "$outDir"/SubfinderOut.txt &>/dev/null
-#subfinder  -silent -dL "$outDir"/domainLists.txt -c $SubfinderConfig -o "$outDir"/SubfinderOut.txt &>/dev/null #comment out this line and comment line 75 if you have config file.
+#subfinder  -silent -dL "$outDir"/domainLists.txt -c $SubfinderConfig -o "$outDir"/SubfinderOut.txt &>/dev/null #uncomment out this line and comment line 75 if you have config file.
 echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
 
 
