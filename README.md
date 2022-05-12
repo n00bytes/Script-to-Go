@@ -4,7 +4,7 @@ This script was created to automate the following task:
 Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address>
 
 Port Scanning using Nmap:
-  * Nmap TCP port scan top 5K ports.
+  * Nmap TCP port scan top 10K ports.
 
 Extract 2nd level domain from Nmap result and perform Subdomain enumeration using:
   * Amass
