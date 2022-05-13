@@ -60,7 +60,7 @@ mkdir "$outDir" "$outNmap" "$outAquatone"
 #SubfinderConfig=/Path/provider-config.yaml	#Uncomment and edit path to your provider-config.yaml
 
 
-nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA $outNmap/nmap_top_10k &>/dev/null
+nmap -T4 -Pn -n -sS -A --open --top-ports 10000 --min-rate 500 --max-rate 1000 --max-retries 2 --defeat-rst-ratelimit -iL $TargetFile -oA $outNmap/nmap_top_10k
 echo -e "${BGreen}Port Scanning Top-ports 10000 TCP........${BRed}[DONE]"
 
 
