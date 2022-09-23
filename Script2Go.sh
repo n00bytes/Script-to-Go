@@ -68,8 +68,8 @@ SubfinderConfig=/root/.config/subfinder/provider-config.yaml	#Edit path to your 
 #SubfinderConfig=/Path/provider-config.yaml	#Uncomment and edit path to your provider-config.yaml
 
 ### Nmap Top ports TCP ###
-#nmap -T4 -Pn -n -sS -A --open --top-ports 1000 --min-rate 500 --max-rate 1000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_TCP &>/dev/null
-echo -e "${BGreen}Port Scanning Top-ports 1000 TCP........${BRed}[DONE]"
+#nmap -T4 -Pn -n -sS -A --open -p- --min-rate 500 --max-rate 10000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_TCP &>/dev/null
+echo -e "${BGreen}Port Scanning All TCP........${BRed}[DONE]"
 
 ### Nmap Top ports UDP ###
 #nmap -T4 -Pn -n -sU -A --open --top-ports 200 --min-rate 500 --max-rate 1000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_UDP &>/dev/null
@@ -101,7 +101,7 @@ else
 fi
 
 if [ -f $outDir/DnsxOut.txt ]; then
-	cat $outDir/DnsxOut.txt | grep -f $TargetFile > $outDir/In-ScopeSubdomains.txt
+	cat $outDir/DnsxOut.txt | grep -f $targetFile > $outDir/In-ScopeSubdomains.txt
 	echo -e "${BGreen}Checking In-Scope target......${BRed}[DONE]"	
 
 else
