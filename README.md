@@ -7,7 +7,7 @@ Port Scanning using Nmap:
   * Nmap TCP port scan top ports.
   * Nmap UDP port scan top ports.
 
-Extract 2nd level domain from Nmap result and perform Subdomain enumeration using:
+Perform Subdomain enumeration using:
   * Amass
   * Subfinder
   
