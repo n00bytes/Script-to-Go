@@ -60,25 +60,32 @@ outAquatone="$outDir"/Aquatone-$(date +"%d-%m-%Y")
 outNmap="$outDir"/NmapResult$(date +"%d-%m-%Y")
 mkdir "$outDir" "$outNmap" "$outAquatone"
 
-### Nmap All ports TCP ###
-nmap -T4 -Pn -n -sS -A --open -p- --min-rate 500 --max-rate 10000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_TCP &>/dev/null
+#### Comment out if you want to use config file for Amass and Subfinder ###
+#AmassConfig=/Path/config.ini    #Uncomment and edit path to your config.ini
+#SubfinderConfig=/Path/provider-config.yaml	#Uncomment and edit path to your provider-config.yaml
+
+### Nmap Top ports TCP ###
+nmap -T4 -Pn -n -sS -A --open --top-ports 1000 --min-rate 500 --max-rate 10000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_TCP &>/dev/null
 echo -e "${BGreen}Port Scanning All TCP........${BRed}[DONE]"
 
 ### Nmap Top ports UDP ###
-nmap -T4 -Pn -n -sU -A --open --top-ports 200 --min-rate 500 --max-rate 1000 --max-retries 3 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_UDP &>/dev/null
+nmap -T4 -Pn -n -sU -A --open --top-ports 200 --min-rate 500 --max-rate 1000 --defeat-rst-ratelimit -iL $targetFile -oA $outNmap/Nmap_TopPorts_UDP &>/dev/null
 echo -e "${BGreen}Port Scanning Top-ports 200 UDP........${BRed}[DONE]"
+
 
 if [  "$d" == "" ]; then
 
 	# If no domain names found.
 	echo -e "${BBlue}No provided domain ..Skipping Subdomain enumeration..${BRed}[SKIP]"
-       	
+       
+       # If domain names found.
 else
-	# If domain names found.
-	amass enum -silent -d $d -o $outDir/AmassOut.txt # Subdomain Enum Amass
+	amass enum -silent -d $d -o $outDir/AmassOut.txt &>/dev/null
+	#amass enum -silent -d $d -config $AmassConfig -o $outDir/AmassOut.txt #uncomment out this line and comment the line above if you have config file.
 	echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
 
-	subfinder  -silent -d $d -o $outDir/SubfinderOut.txt &>/dev/null # Subdomain Enum Subfinder
+	subfinder -silent -dL $d -o $outDir/SubfinderOut.txt &>/dev/null
+	#subfinder  -silent -d $d -config $SubfinderConfig -o $outDir/SubfinderOut.txt &>/dev/null #uncomment out this line and comment line above if you have config file.
 	echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
 
 	cat $outDir/AmassOut.txt $outDir/SubfinderOut.txt | sort -u > $outDir/Subdomains.txt
@@ -104,7 +111,10 @@ else
 	echo -e "${BGreen}Skipping Aquatone........${BRed}[SKIP]"
 fi
 
-cat $outAquatone/aquatone_urls.txt | awk {'print $1'} | httpx -status-code -title -tech-detect -o $outDir/HTTPxOut.txt &>/dev/null
+cat $outAquatone/aquatone_urls.txt | awk {'print $1'} | hakrawler -plain > -o $outDir/url_with_path.txt
+echo -e "${BGreen}Crawling all web applications.......${BRed}[DONE]"
+
+cat $outDir/url_with_path.txt | httpx -status-code -title -tech-detect -o $outDir/HTTPxOut.txt &>/dev/null
 echo -e "${BGreen}HTTPx  scanning......${BRed}[DONE]"
 
 nuclei -update -ut &>/dev/null
