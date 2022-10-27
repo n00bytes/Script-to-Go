@@ -4,7 +4,7 @@ This script is created to automate the following task:
 Usage: ./Script2GO.sh -f ListofIPaddress -d TargetDomain
 
 Port Scanning using Masscan:
-  * TCP port scan 65k ALL ports
+  * Port knocking scan 65k ALL ports TCP
 
 Port Service Enumeration using Nmap:
   * Service enumeration using the output from Masscan
