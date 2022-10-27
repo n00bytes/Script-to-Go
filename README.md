@@ -56,9 +56,6 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
  * Hakrawler
  https://github.com/hakluke/hakrawler
 
-# Or install them using the installation script.
-* Make sure to run the install.sh as root and run the script on the background.
-
-
+Or install them using the installation script.
 
 Note: Make sure to run the script as "root"
