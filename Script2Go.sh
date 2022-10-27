@@ -13,8 +13,8 @@ Vulnerability_Result="$Result_Path"/Vulnerability-$(date +"%d-%m-%Y")
 Webcrawl_Result="$Result_Path"/WebCrawler-$(date +"%d-%m-%Y")
 
 ### Config File ###
-AmassConfig=/home/consultant/Tools/config.ini    #Edit path to your config.ini
-SubfinderConfig=/root/.config/subfinder/provider-config.yaml	#Edit path to your provider-config.yaml
+AmassConfig=/path-of-config    #Edit path to your config.ini
+SubfinderConfig=/path-of-config	#Edit path to your provider-config.yaml
 
 clear
 cat << "EOF"
