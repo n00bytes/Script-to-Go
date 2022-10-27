@@ -1,7 +1,7 @@
 # Script2Go
 This script is created to automate the following task:
 
-Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address> -d <Target-Domain>
+Usage: ./Script2GO.sh -f <ListofIPaddress> -d <TargetDomain>
 
 Port Scanning using Masscan:
   * TCP port scan 65k ALL ports
@@ -28,12 +28,13 @@ Web crawler: Checking all posible web application endpoint and link
  
 This tool will also perform DNS queries againts the discovered subdomains and compare it on your supplied target file to avoid any out-of-scope scanning.
 
-Credit to the following for creating these awesome tools.
+Credit to the author these awesome tools.
   * https://github.com/projectdiscovery/
   * https://github.com/OWASP/Amass
   * https://github.com/michenriksen
-  * https://github.com/lc/gau
+  * https://github.com/hakluke/hakrawler
   * https://nmap.org/
+  * https://github.com/robertdavidgraham/masscan
 
  
  # Check the following links to manually install the tools needed.
