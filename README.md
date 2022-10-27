@@ -1,11 +1,13 @@
 # Script2Go
 This script was created to automate the following task:
 
-Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address>
+Usage: ./Script2GO.sh -f TargetFile <List of IPv4 target address> -d <Target-Domain>
 
-Port Scanning using Nmap:
-  * Nmap TCP port scan ALL ports.
-  * Nmap UDP port scan top ports.
+Port Scanning using Masscan:
+  * TCP port scan 65k ALL ports
+
+Port Service Enumeration using Nmap:
+  * Service enumeration using the output from Masscan
 
 Perform Subdomain enumeration using:
   * Amass
@@ -14,14 +16,15 @@ Perform Subdomain enumeration using:
 Website screen capturing using:
   * Aquatone
 
-Fetch URLS
-  * GAU
-
 Identify active Web urls using HTTP prober:
   * HTTPx
 
 Vulnerability Scanning using:
   * Nuclei
+
+Add-Ons
+Web crawler: Checking all posible web application endpoint and link
+  * hakrawler
  
 This tool will also perform DNS queries againts the discovered subdomains and compare it on your supplied target file to avoid any out-of-scope scanning.
 
@@ -50,9 +53,12 @@ Note: Make sure to install them as root and once installed run " export PATH=$PA
  https://github.com/projectdiscovery/dnsx
  * Aquatone
  https://github.com/michenriksen/aquatone
- * Gau
- https://github.com/lc/gau
+ * Hakrawler
+ https://github.com/hakluke/hakrawler
 
 # Or install them using the installation script.
 * Make sure to run the install.sh as root and run the script on the background.
 
+
+
+Note: Make sure to run the script as "root"
