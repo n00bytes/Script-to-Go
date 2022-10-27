@@ -93,9 +93,9 @@ subdomainsRecon(){
 	if [ "$d" == "" ]; then
 	echo -e "${BGreen}No provided domain ..Skipping Subdomain enumeration..${BRed}[SKIP]"
 	else
-	amass enum -silent -df $d -config $AmassConfig -o $Subdomains_Recon/AmassOut.txt #uncomment out this line and comment the line above if you have config file.
+	amass enum -silent -df $d -config $AmassConfig -o $Subdomains_Recon/AmassOut.txt
 	echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
-	subfinder  -silent -d $d -config $SubfinderConfig -o $Subdomains_Recon/SubfinderOut.txt &>/dev/null #uncomment out this line and comment line above if you have config file.
+	subfinder  -silent -d $d -config $SubfinderConfig -o $Subdomains_Recon/SubfinderOut.txt &>/dev/null
 	echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
 	cat $Subdomains_Recon/AmassOut.txt $Subdomains_Recon/SubfinderOut.txt | sort -u > $Subdomains_Recon/Subdomains.txt
 	echo -e "${BGreen}Sorting discovered subdomains......${BRed}[DONE]"
