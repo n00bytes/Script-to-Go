@@ -13,8 +13,8 @@ Vulnerability_Result="$Result_Path"/Vulnerability-$(date +"%d-%m-%Y")
 Webcrawl_Result="$Result_Path"/WebCrawler-$(date +"%d-%m-%Y")
 
 ### Config File ###
-AmassConfig=/path-of-config    #Edit path to your config.ini
-SubfinderConfig=/path-of-config	#Edit path to your provider-config.yaml
+AmassConfig=/pathtoconfig/   #Edit path to your config.ini
+SubfinderConfig=/pathtoconfig/	#Edit path to your provider-config.yaml
 
 clear
 cat << "EOF"
@@ -88,54 +88,49 @@ portScan(){
 	rm $PortScan_Result/Nmap_Target
 	echo -e "${BGreen}Nmap Scanning.......${BRed}[DONE]"
 }
-
 subdomainsRecon(){
 	if [ "$d" == "" ]; then
 	echo -e "${BGreen}No provided domain ..Skipping Subdomain enumeration..${BRed}[SKIP]"
 	else
-	amass enum -silent -df $d -config $AmassConfig -o $Subdomains_Recon/AmassOut.txt
+	amass enum -silent -df $d -config $AmassConfig -o $Subdomains_Result/AmassOut.txt #uncomment out this line and comment the line above if you have config file.
 	echo -e "${BGreen}Amass scanning......${BRed}[DONE]"
-	subfinder  -silent -d $d -config $SubfinderConfig -o $Subdomains_Recon/SubfinderOut.txt &>/dev/null
+	subfinder  -silent -d $d -config $SubfinderConfig -o $Subdomains_Result/SubfinderOut.txt &>/dev/null #uncomment out this line and comment line above if you have config file.
 	echo -e "${BGreen}Subfinder scanning......${BRed}[DONE]"
-	cat $Subdomains_Recon/AmassOut.txt $Subdomains_Recon/SubfinderOut.txt | sort -u > $Subdomains_Recon/Subdomains.txt
+	cat $Subdomains_Result/AmassOut.txt $Subdomains_Result/SubfinderOut.txt | sort -u > $Subdomains_Result/Subdomains.txt
 	echo -e "${BGreen}Sorting discovered subdomains......${BRed}[DONE]"
-	cat $Subdomains_Recon/Subdomains.txt | dnsx -silent -resp -a -aaaa -o $Subdomains_Recon/DnsxOut.txt &>/dev/null
+	cat $Subdomains_Result/Subdomains.txt | dnsx -silent -resp -a -aaaa -o $Subdomains_Result/DnsxOut.txt &>/dev/null
 	echo -e "${BGreen}Performing reverse dns queries......${BRed}[DONE]"
 	fi
 
-	if [ -f $Subdomains_Recon/DnsxOut.txt ]; then
-	cat $Subdomains_Recon/DnsxOut.txt | grep -f $TargetFile > $Subdomains_Recon/In-ScopeSubdomains.txt
+	if [ -f $Subdomains_Result/DnsxOut.txt ]; then
+	cat $Subdomains_Result/DnsxOut.txt | grep -f $TargetFile > $Subdomains_Result/In-ScopeSubdomains.txt
 	echo -e "${BGreen}Checking In-Scope target......${BRed}[DONE]"	
 	else
 	echo -e ""
 	fi
 }
-
 aquatoneScan(){
-	if [ -f $Subdomains_Recon/In-ScopeSubdomains.txt ]; then
-	cat $TargetFile $Subdomains_Recon/In-ScopeSubdomains.txt | aquatone -ports large -out $Aquatone_Result/ &>/dev/null
+	if [ -f $Subdomains_Result/In-ScopeSubdomains.txt ]; then
+	cat $TargetFile $Subdomains_Result/In-ScopeSubdomains.txt | aquatone -ports large -out $Aquatone_Result/ &>/dev/null
 	echo -e "${BGreen}Running Aquatone........${BRed}[DONE]"
 	else
 	cat $TargetFile | aquatone -ports large -out $Aquatone_Result/ &>/dev/null
 	echo -e "${BGreen}Skipping Aquatone........${BRed}[SKIP]"
 	fi
 }
-
-nucleiScan(){
-	cat $Aquatone_Result/aquatone_urls.txt | httpx -status-code -title -tech-detect -o $Subdomains_Recon/HTTPxOut.txt &>/dev/null
-	echo -e "${BGreen}HTTPx  scanning......${BRed}[DONE]"
-	nuclei -update -ut &>/dev/null
-	cat $Subdomains_Recon/HTTPxOut.txt | grep -Fv -e 404 -e 500 -e 401 -e 402 -e 400 -e FAILED | awk {'print $1'} | nuclei -o $Vulnerability_Result/NucleiScanOut.txt &>/dev/null
-echo -e "${BGreen}Nuclei scanning......${BRed}[DONE]"
-}
-
 webcrawler(){
-	cat $Subdomains_Recon/HTTPxOut.txt | hakrawler -d 3 -dr -i -u >> $Webcrawl_Result/WebCrawl_Output.txt
-
+	cat $Aquatone_Result/aquatone_urls.txt | httpx -status-code -fc 404,500,401,402,400 -o $Subdomains_Result/HTTPxOut.txt &>/dev/null
+	cat $Subdomains_Result/HTTPxOut.txt | awk '{print $1}'| hakrawler -d 3 -t 25 -i -u | httpx -status-code -fc 403,401,404,500,402,400 -o $Webcrawl_Result/WebCrawl_Output.txt
+	echo -e "${BGreen}Scanning possible endpoit......${BRed}[DONE]"
+}
+nucleiScan(){
+	nuclei -update -ut &>/dev/null
+	cat $Subdomains_Result/HTTPxOut.txt $Webcrawl_Result/WebCrawl_Output.txt | sort -u | awk {'print $1'} | nuclei -o $Vulnerability_Result/NucleiScanOut.txt &>/dev/null
+	echo -e "${BGreen}Nuclei Vulnerability scanning......${BRed}[DONE]"
 }
 portScan
 subdomainsRecon
 aquatoneScan
-nucleiScan
 webcrawler
+nucleiScan
 echo -e "${BRed}Now Get those file and start working.........."
