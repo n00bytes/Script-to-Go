@@ -7,7 +7,7 @@ Port Scanning using Masscan:
   * Port knocking scan 65k ALL ports TCP
 
 Port Service Enumeration using Nmap:
-  * Service enumeration using the output from Masscan
+  * Service enumeration using the port output from Masscan
 
 Perform Subdomain enumeration using:
   * Amass
