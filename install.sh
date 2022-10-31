@@ -49,3 +49,8 @@ else
         echo "Dnsx Already Installed"
 fi
 
+if ! command -v hakrawler &>/dev/null; then
+go install github.com/hakluke/hakrawler@latest  && cp /root/go/bin/hakrawler /usr/local/bin/
+else
+        echo "hakrawler Already Installed"
+fi
