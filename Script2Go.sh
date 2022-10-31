@@ -133,4 +133,4 @@ subdomainsRecon
 aquatoneScan
 webcrawler
 nucleiScan
-echo -e "${BRed}Now Get those file and start working.........."
+echo -e "${BRed}All Scan Completed.........."
